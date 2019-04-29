@@ -98,8 +98,7 @@ class ANN:
                     "db" + str(l)]
 
             if loop % 100 == 0:
-                print(cost)
-                # self.predict(X, Y)
+                print("Cost: ", cost, "Train Accuracy:", self.predict(X, Y))
 
             if loop % 10 == 0:
                 self.costs.append(cost)
@@ -109,7 +108,7 @@ class ANN:
         y_hat = np.argmax(A, axis=0)
         Y = np.argmax(Y, axis=1)
         accuracy = (y_hat == Y).mean()
-        print("Accuracy :", accuracy * 100)
+        return accuracy * 100
 
     def plot_cost(self):
         plt.figure()
@@ -140,10 +139,10 @@ if __name__ == '__main__':
     print("train_x's shape: " + str(train_x.shape))
     print("test_x's shape: " + str(test_x.shape))
 
-    layers_dims = [192, 10]
+    layers_dims = [50, 10]
 
     ann = ANN(layers_dims)
-    ann.fit(train_x, train_y, learning_rate=0.1, n_iterations=10)
-    ann.predict(train_x, train_y)
-    ann.predict(test_x, test_y)
+    ann.fit(train_x, train_y, learning_rate=0.1, n_iterations=1000)
+    print("Train Accuracy:", ann.predict(train_x, train_y))
+    print("Test Accuracy:", ann.predict(test_x, test_y))
     ann.plot_cost()

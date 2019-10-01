@@ -126,3 +126,12 @@ transformed = X.dot(W)
 
 plt.scatter(transformed[:, 0], transformed[:, 1], c=y, cmap=plt.cm.Set1)
 plt.show()
+
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+clf = LinearDiscriminantAnalysis()
+clf.fit(X, y)
+transformed = clf.transform(X)
+
+plt.scatter(transformed[:, 0], transformed[:, 1], c=y, cmap=plt.cm.Set1)
+plt.show()

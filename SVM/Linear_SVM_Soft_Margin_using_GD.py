@@ -42,8 +42,6 @@ class LinearSVMUsingSoftMargin:
         loss_array = []
         for _ in range(epochs):
             margin = self.__margin(X, y)
-            loss = self.__cost(margin)
-            loss_array.append(loss)
 
             misclassified_pts_idx = np.where(margin < 1)[0]
             d_beta = self.beta - self.C * y[misclassified_pts_idx].dot(X[misclassified_pts_idx])
@@ -51,6 +49,9 @@ class LinearSVMUsingSoftMargin:
 
             d_b = - self.C * np.sum(y[misclassified_pts_idx])
             self.b = self.b - lr * d_b
+
+            loss = self.__cost(margin)
+            loss_array.append(loss)
 
         self._support_vectors = np.where(self.__margin(X, y) <= 1)[0]
 
